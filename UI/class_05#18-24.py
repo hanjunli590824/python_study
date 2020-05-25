@@ -148,21 +148,47 @@ class LoginPage:
         判断一下remeber_user的值，来决定是否勾选
         self.driver.find_element_by_xpath(login_but).click()
 
-        pass
-
     注册入口
     def register_enter()
         webdriverwait(self.driver,20).until(ec.visibility_of_element_located((by.xpath,"")))
         self.driver.find_element_by_xpath("").click()
-        pass
 
     忘记密码
+
+
+首页页面page类：
+from selenium import webdriver
+from selenium.webdriver.support.wait import webdriverwait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import by
+import time
+
+class LoginPage:
+
+    def__init__(self,driver):--page类中不需要单独打开浏览器
+    self.driver=driver
+
+    def isexist_logout_ele(self):
+    如果存在就返回true，如果不存在，就返回false
+    try:
+        webdriverwait(self.driver,10).until(ec.visibility_of_element_located((by.xpath,"//a[@href="/index/logout.html"]")))
+        return true
+    except:
+        return false
+
+
 
 登陆测试用例：
 import unittest
 from selenium import webdriver
+from selenium.webdriver.support.wait import webdriverwait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.common.by import by
 from pageobjects.login_page import loginpage
+from pageobjects.index_page import indexpage
+
 class testlogin(unittest.testcast):
+
     dif setup(self):
         前置 访问登陆页面
         self.driver=wedriver.chrome()
@@ -177,11 +203,9 @@ class testlogin(unittest.testcast):
     def test_login_success(self):
         步骤 输入用户名和密码
         self.lg.login("账号","密码")
-        断言 首页找到特定元素
-        等待10秒
-        找元素 //a[@href="/index/logout.html"]
-        self.driver.find_element_by_xpath('//a[@href="/index/logout.html"]')
-        pass
+        断言 首页找到特定元素  //a[@href="/index/logout.html"]
+        self.asserttrue(indexpage(self.driver).isexist_logout_ele())
+
 
     异常用例-手机号码格式不正确
     def test_login_user_wrongformat(self):
