@@ -9,6 +9,7 @@ from selenium.webdriver.support.wait import webdriverwait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.common.by import by
 import time
+from pagelocator.loginpage_locators import loginpagelocator as loc
 
 class LoginPage:
 
@@ -20,14 +21,11 @@ class LoginPage:
         输入用户名
         输入密码
         点击登陆
-        name_text='//input[@name="phone"]'
-        pwd_text='//input[@name="password"]'
-        login_but='//button[@text()="登陆"]'
-        webdriverwait(self.driver,20).until(ec.visibility_of_element_located((by.xpath,name)))
-        self.driver.find_element_by_xpath(name_text).send_keys(username)
-        self.driver.find_element_by_xpath(pwd_text).send_keys(passwd)
+        webdriverwait(self.driver,20).until(ec.visibility_of_element_located(loc.name_text))
+        self.driver.find_element(*loc.name_text).send_keys(username)
+        self.driver.find_element(*loc.pwd_text).send_keys(passwd)
         判断一下remeber_user的值，来决定是否勾选
-        self.driver.find_element_by_xpath(login_but).click()
+        self.driver.find_element(*loc.login_but).click()
 
     注册入口
     def register_enter()
@@ -39,6 +37,13 @@ class LoginPage:
     def get_errormsg_from_loginarea(self):
     webdriverwait(self.driver,20).until(ec.visibility_of_element((by.xpath,"//div[@class="form-error-info"]")))
     return self.driver.find_element_by_xpath("//div[@class="form-error-info"]").text
+
+    获取错误信息--页面正中间
+    def get_errornag_from_pagecenter(self):
+    webdriverwait(self.driver,20).until(ec.visibility_of_element((by.xpath,"//div[@class="layui-layer-content"]")))
+    return self.driver.find_element_by_xpath("//div[@class="layui-layer-content"]").text
+
+
     忘记密码
 
 
