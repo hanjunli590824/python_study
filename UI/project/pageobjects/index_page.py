@@ -4,11 +4,8 @@
 #@Email     : 13032178760@163.com
 #@File      : index_page.py
 """
-from selenium import webdriver
-from selenium.webdriver.support.wait import webdriverwait
 from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.by import by
-import time
+from common.basepage import basepage
 import random
 
 

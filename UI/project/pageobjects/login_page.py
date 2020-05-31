@@ -15,7 +15,7 @@ class LoginPage(basepage):
         输入密码
         点击登陆
         doc="登陆页面_登陆功能"
-        self.wait_elevisible(loc.user_input,doc)\
+        self.wait_elevisible(loc.user_input,doc=doc)\
         self.input_text(loc.user_input,username,doc)
         self.input_text(loc.passwd_input,passwd,doc)
         判断一下remeber_user的值，来决定是否勾选
@@ -24,13 +24,14 @@ class LoginPage(basepage):
     获取错误提示信息--登陆区域
     def get_errormsg_from_loginarea(self):
         doc="登陆页面_获取登陆区域的错误提示"
-        self.wait_elevisible(loc.form_error_info,doc)
+        self.wait_elevisible(loc.form_error_info,doc=doc)
         return self.get_text(loc.form_error_info,doc)
 
     获取错误信息--页面正中间
     def get_errornag_from_pagecenter(self):
-    webdriverwait(self.driver,20).until(ec.visibility_of_element((by.xpath,"//div[@class="layui-layer-content"]")))
-    return self.driver.find_element_by_xpath("//div[@class="layui-layer-content"]").text
+        doc="登陆页面_获取页面正中间的错误提示"
+        self.wait_elevisible(loc.pagecenter_error_info,poll_frequency=0.2,doc=doc)
+        return self.get_text(loc.pagecenter_error_info,doc)
 
     忘记密码
 

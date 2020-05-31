@@ -34,7 +34,8 @@ class basepage:
             结束等待的时间
             end=datetime.datetime.now()
             求一个插值，写在日志中--等待了多久
-            logging.info("等待结束，等待时长为：{}")
+            wait_times=(end-start).seconds
+            logging.info("{0}:元素{1}已可见，等待起始时间：{2}，等待结束时间：{3}，等待时长为：{4}")
         except:
             logging.exception("等待元素可见失败！")
             截图
@@ -126,11 +127,16 @@ class basepage:
     截图操作
     def save_screenshot(self，name):
         图片名称：模块名称_页面名称_操作名称_年-月-日_时分秒.png
-        当前时间
-        file_name="截图存放路径"+"{0}_{1}.png"
-        self.driver.save_screenshot(file_name）
-        logging.info("截取网页成功。文件路径为：{}".format(file_name))
-
+        filepath=指定的图片保存目录/model(页面功能名称)_当前时间到秒.png
+        filepath=dir_config.screenshot_dir+\
+        "/{0}_{1}.png".format(doc,tome.strftime(%y-%m-%d-%h-%m-%s,time.localtime()))
+        截图文件存放在screenshot目录下
+        driver方法：self.driver.save_screenshot(）
+        try:
+            self.driver.save_screenshot(filepath）
+            logging.info("截屏成功。图片路径为{0}".format(filepath))
+        except:
+            logging.exception("截图失败")
 
 
 
